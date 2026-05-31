@@ -1,0 +1,17 @@
+[Unit]
+Description=EMU power logger
+After=network.target
+Before=nextcloud-web.service
+
+[Service]
+ExecStart=/root/Emu-Serial-API/get_instantaneous_demand.py
+Type=simple
+Restart=always
+RestartSec=5s
+Environment=PYTHONUNBUFFERED=1
+StandardOutput=append:/var/log/emu.log
+StandardError=append:/var/log/emu.err
+
+[Install]
+WantedBy=default.target
+RequiredBy=network.target
